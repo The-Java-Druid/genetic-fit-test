@@ -92,42 +92,35 @@ public class TestModelTest {
     public void calculateTotalScore() {
         final TestModel cr7 = new TestModel("Genetic Test for Bodybuilding Potential", SECTIONS, RESULTS);
         final Section generalShape = cr7.getSections().get(0);
-        final Question height = generalShape.getQuestions().get(0);
-        height.setSelectedAnswer(height.getAnswers().get(4));
-        final Question metabolism = generalShape.getQuestions().get(1);
-        metabolism.setSelectedAnswer(metabolism.getAnswers().get(2));
-        final Question shoulderWidth = generalShape.getQuestions().get(2);
-        shoulderWidth.setSelectedAnswer(shoulderWidth.getAnswers().get(2));
+        final List<Question> generalShapeQuestions = generalShape.getQuestions();
+        generalShapeQuestions.get(0).setSelectedAnswer(4);
+        generalShapeQuestions.get(1).setSelectedAnswer(2);
+        generalShapeQuestions.get(2).setSelectedAnswer(2);
 
         final Section abs = cr7.getSections().get(1);
-        final Question absSymmetry = abs.getQuestions().get(0);
-        absSymmetry.setSelectedAnswer(absSymmetry.getAnswers().get(1));
-        final Question absShape = abs.getQuestions().get(1);
-        absShape.setSelectedAnswer(absShape.getAnswers().get(1));
-        final Question absGap = abs.getQuestions().get(2);
-        absGap.setSelectedAnswer(absGap.getAnswers().get(0));
-        final Question absPack = abs.getQuestions().get(3);
-        absPack.setSelectedAnswer(absPack.getAnswers().get(1));
+        final List<Question> absQuestions = abs.getQuestions();
+        absQuestions.get(0).setSelectedAnswer(1);
+        absQuestions.get(1).setSelectedAnswer(1);
+        absQuestions.get(2).setSelectedAnswer(0);
+        absQuestions.get(3).setSelectedAnswer(1);
 
         final Section pecs = cr7.getSections().get(2);
-        final Question pecsSymmetry = pecs.getQuestions().get(0);
-        pecsSymmetry.setSelectedAnswer(pecsSymmetry.getAnswers().get(0));
-        final Question pecsShape = pecs.getQuestions().get(1);
-        pecsShape.setSelectedAnswer(pecsShape.getAnswers().get(0));
-        final Question pecsGap = pecs.getQuestions().get(2);
-        pecsGap.setSelectedAnswer(pecsGap.getAnswers().get(1));
+        final List<Question> pecsQuestions = pecs.getQuestions();
+        pecsQuestions.get(0).setSelectedAnswer(0);
+        pecsQuestions.get(1).setSelectedAnswer(0);
+        pecsQuestions.get(2).setSelectedAnswer(1);
 
         final Section calves = cr7.getSections().get(3);
-        final Question calfLength = calves.getQuestions().get(0);
-        calfLength.setSelectedAnswer(calfLength.getAnswers().get(1));
+        calves.getQuestions()
+            .get(0).setSelectedAnswer(1);
 
         final Section biceps = cr7.getSections().get(4);
-        final Question bicepsLength = biceps.getQuestions().get(0);
-        bicepsLength.setSelectedAnswer(bicepsLength.getAnswers().get(0));
+        biceps.getQuestions()
+            .get(0).setSelectedAnswer(0);
 
         final Section skin = cr7.getSections().get(5);
-        final Question skinDetails = skin.getQuestions().get(0);
-        skinDetails.setSelectedAnswer(skinDetails.getAnswers().get(1));
+        skin.getQuestions()
+            .get(0).setSelectedAnswer(1);
 
         assertEquals(54, cr7.calculateTotalScore());
         assertEquals("You've got a privileged physique...", cr7.getResultText());

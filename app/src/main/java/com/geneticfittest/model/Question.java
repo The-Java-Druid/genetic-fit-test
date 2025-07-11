@@ -28,8 +28,19 @@ public class Question {
         this.selectedAnswer = selectedAnswer;
     }
 
+    public void setSelectedAnswer(int index) {
+        if (index >= 0 && index < answers.size()) {
+            selectedAnswer = answers.get(index);
+        } else {
+            throw new IllegalArgumentException("Invalid answer index");
+        }
+    }
+
     public int getScore() {
-        return selectedAnswer.getScore();
+        if (selectedAnswer != null) {
+            return selectedAnswer.getScore();
+        }
+        return 0;
     }
 
     @Override
