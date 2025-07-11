@@ -16,7 +16,7 @@ public class Results {
 
     public String getResultText(int score) {
         return ranges.stream()
-            .filter(range -> score >= range.getMin() && score <= range.getMax())
+            .filter(range -> range.contains(score))
             .map(ResultRange::getText)
             .findFirst().orElse(UNKNOWN_RESULT_TEXT);
     }

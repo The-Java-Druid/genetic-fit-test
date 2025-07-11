@@ -25,6 +25,10 @@ public class ResultRange {
         return text;
     }
 
+    public boolean contains(int score) {
+        return score >= min && score <= max;
+    }
+
     @NonNull
     @Override
     public String toString() {
