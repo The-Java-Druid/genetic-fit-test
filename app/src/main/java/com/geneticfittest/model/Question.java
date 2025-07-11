@@ -31,4 +31,9 @@ public class Question {
     public int getScore() {
         return selectedAnswer.getScore();
     }
+
+    @Override
+    public String toString() {
+        return getText();
+    }
 }

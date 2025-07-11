@@ -14,4 +14,9 @@ public class Answer {
     public int getScore() {
         return score;
     }
+
+    @Override
+    public String toString() {
+        return getText();
+    }
 }

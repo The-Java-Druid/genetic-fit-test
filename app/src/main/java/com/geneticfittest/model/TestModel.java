@@ -5,12 +5,12 @@ import java.util.List;
 public class TestModel {
     private final String title;
     private final List<Section> sections;
-    private final int[] selectedAnswers; // index of selected answer per section
+    private final Results results;
 
-    public TestModel(String title, List<Section> sections, int[] selectedAnswers) {
+    public TestModel(String title, List<Section> sections, Results results) {
         this.title = title;
         this.sections = sections;
-        this.selectedAnswers = selectedAnswers;
+        this.results = results;
     }
 
     public String getTitle() {
@@ -21,17 +21,18 @@ public class TestModel {
         return sections;
     }
 
-    public int[] getSelectedAnswers() {
-        return selectedAnswers;
-    }
-
-    public int getSelectedAnswer(int sectionIndex) {
-        return selectedAnswers[sectionIndex];
-    }
-
     public int calculateTotalScore() {
         return sections.stream()
                 .mapToInt(Section::calculateTotalScore)
                 .sum();
+    }
+
+    public String getResultText(){
+        return results.getResultText(calculateTotalScore());
+    }
+
+    @Override
+    public String toString() {
+        return getTitle();
     }
 }

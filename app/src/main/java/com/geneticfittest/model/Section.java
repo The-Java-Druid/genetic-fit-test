@@ -24,4 +24,9 @@ public class Section {
                 .mapToInt(Question::getScore)
                 .sum();
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
