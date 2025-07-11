@@ -1,5 +1,7 @@
 package com.geneticfittest.model;
 
+import androidx.annotation.NonNull;
+
 public class ResultRange {
     final int min;
     final int max;
@@ -23,6 +25,7 @@ public class ResultRange {
         return text;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getText();

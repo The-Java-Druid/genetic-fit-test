@@ -46,6 +46,19 @@ public class QuestionTest {
         assertEquals(1, question.getScore());
     }
 
+    @Test
+    public void getScoreWrongAnswer() {
+        final Question question = buildQuestion();
+        question.setSelectedAnswer(1);
+        assertEquals(0, question.getScore());
+    }
+
+    @Test
+    public void getScoreNoAnswer() {
+        final Question question = buildQuestion();
+        assertEquals(0, question.getScore());
+    }
+
     @NonNull
     private static Question buildQuestion() {
         return new Question("What is the capital of France?", CAPITALS);

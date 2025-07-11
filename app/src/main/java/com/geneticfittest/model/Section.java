@@ -1,5 +1,7 @@
 package com.geneticfittest.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 public class Section {
@@ -25,6 +27,7 @@ public class Section {
                 .sum();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getName();

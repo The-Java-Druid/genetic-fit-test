@@ -1,5 +1,7 @@
 package com.geneticfittest.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 public class TestModel {
@@ -31,6 +33,7 @@ public class TestModel {
         return results.getResultText(calculateTotalScore());
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getTitle();

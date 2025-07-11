@@ -1,5 +1,7 @@
 package com.geneticfittest.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 public class Question {
@@ -43,6 +45,7 @@ public class Question {
         return 0;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getText();
