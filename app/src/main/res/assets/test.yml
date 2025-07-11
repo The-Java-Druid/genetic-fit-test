@@ -1,0 +1,118 @@
+title: "Genetic Test for Bodybuilding Potential"
+sections:
+  - name: "General shape"
+    questions:
+      - text: "How tall are you?"
+        answers:
+          - text: "Less than 1.70m"
+            score: 0
+          - text: "1.70m to 1.75m"
+            score: 3
+          - text: "1.75m to 1.80m"
+            score: 5
+          - text: "1.80m to 1.85m"
+            score: 8
+          - text: "More than 1.85m"
+            score: 12
+      - text: "How quickly do you lose fat and gain muscle?"
+        answers:
+          - text: "Meh..."
+            score: 4
+          - text: "Could do better"
+            score: 6
+          - text: "Beast"
+            score: 8
+      - text: "How much wider are your shoulders than your hips?"
+        answers:
+          - text: "Same width"
+            score: 1
+          - text: "Around 1.5"
+            score: 3
+          - text: "Above 1.75"
+            score: 10
+          - text: "Above 2.00"
+            score: 15
+  - name: "Abs"
+    questions:
+      - text: "How symmetrical are your abs?"
+        answers:
+          - text: "Completely symmetrical"
+            score: 4
+          - text: "Asymmetrical"
+            score: 0
+      - text: "How squared are your abs?"
+        answers:
+          - text: "Squared/rectangular"
+            score: 2
+          - text: "Irregular"
+            score: 0
+      - text: "How wide is the gap between your abs?"
+        answers:
+          - text: "Very narrow gap"
+            score: 4
+          - text: "Wide gap"
+            score: 0
+      - text: "How many pack?"
+        answers:
+          - text: "4-pack"
+            score: 1
+          - text: "6-pack+"
+            score: 2
+  - name: "Pecs"
+    questions:
+      - text: "How symmetrical are your pecs?"
+        answers:
+          - text: "Completely symmetrical"
+            score: 4
+          - text: "Asymmetrical"
+            score: 0
+      - text: "How squared are your pecs?"
+        answers:
+          - text: "Squared/rectangular"
+            score: 4
+          - text: "Rounded/Irregular"
+            score: 0
+      - text: "How wide is the gap between your pecs?"
+        answers:
+          - text: "Very narrow gap"
+            score: 4
+          - text: "Very narrow gap at the top, but widens at the bottom"
+            score: 2
+          - text: "Wide gap"
+            score: 0
+  - name: "Calves"
+    questions:
+      - text: "How long are your tendons?"
+        answers:
+          - text: "Short"
+            score: 6
+          - text: "Medium"
+            score: 3
+          - text: "Long"
+            score: 0
+  - name: "Biceps"
+    questions:
+      - text: "How long are your tendons?"
+        answers:
+          - text: "Short"
+            score: 5
+          - text: "Long"
+            score: 0
+  - name: "Skin"
+    questions:
+      - text: "Can you see your muscles details through your skin?"
+        answers:
+          - text: "Yes"
+            score: 2
+          - text: "No"
+            score: 0
+results:
+  - min: 0
+    max: 35
+    text: "You may face genetic challenges..."
+  - min: 36
+    max: 50
+    text: "You've got a decent potential..."
+  - min: 50
+    max: 72
+    text: "You've got a privileged potential..."
