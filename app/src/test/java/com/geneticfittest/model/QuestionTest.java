@@ -27,7 +27,7 @@ public class QuestionTest {
     public void setSelectedAnswer() {
         final Question question = buildQuestion();
         question.setSelectedAnswer(0);
-        assertEquals(BELOW_170, question.getSelectedAnswer());
+        assertEquals(BELOW_170, question.selectedAnswer().get());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -43,7 +43,7 @@ public class QuestionTest {
     }
 
     @Test
-    public void getScoreCorrectAnswer() {
+    public void getScore() {
         final Question question = buildQuestion();
         question.setSelectedAnswer(1);
         assertEquals(3, question.getScore());

@@ -91,35 +91,35 @@ public class TestModelTest {
     @Test
     public void calculateTotalScore() {
         final TestModel cr7 = new TestModel("Genetic Test for Bodybuilding Potential", SECTIONS, RESULTS);
-        final Section generalShape = cr7.getSections().get(0);
-        final List<Question> generalShapeQuestions = generalShape.getQuestions();
+        final Section generalShape = cr7.sections().get(0);
+        final List<Question> generalShapeQuestions = generalShape.questions();
         generalShapeQuestions.get(0).setSelectedAnswer(4);
         generalShapeQuestions.get(1).setSelectedAnswer(2);
         generalShapeQuestions.get(2).setSelectedAnswer(2);
 
-        final Section abs = cr7.getSections().get(1);
-        final List<Question> absQuestions = abs.getQuestions();
+        final Section abs = cr7.sections().get(1);
+        final List<Question> absQuestions = abs.questions();
         absQuestions.get(0).setSelectedAnswer(1);
         absQuestions.get(1).setSelectedAnswer(1);
         absQuestions.get(2).setSelectedAnswer(0);
         absQuestions.get(3).setSelectedAnswer(1);
 
-        final Section pecs = cr7.getSections().get(2);
-        final List<Question> pecsQuestions = pecs.getQuestions();
+        final Section pecs = cr7.sections().get(2);
+        final List<Question> pecsQuestions = pecs.questions();
         pecsQuestions.get(0).setSelectedAnswer(0);
         pecsQuestions.get(1).setSelectedAnswer(0);
         pecsQuestions.get(2).setSelectedAnswer(1);
 
-        final Section calves = cr7.getSections().get(3);
-        calves.getQuestions()
+        final Section calves = cr7.sections().get(3);
+        calves.questions()
             .get(0).setSelectedAnswer(1);
 
-        final Section biceps = cr7.getSections().get(4);
-        biceps.getQuestions()
+        final Section biceps = cr7.sections().get(4);
+        biceps.questions()
             .get(0).setSelectedAnswer(0);
 
-        final Section skin = cr7.getSections().get(5);
-        skin.getQuestions()
+        final Section skin = cr7.sections().get(5);
+        skin.questions()
             .get(0).setSelectedAnswer(1);
 
         assertEquals(54, cr7.calculateTotalScore());
