@@ -19,3 +19,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# SnakeYAML uses reflection
+-keep class org.yaml.snakeyaml.** { *; }
+-keepattributes Signature
