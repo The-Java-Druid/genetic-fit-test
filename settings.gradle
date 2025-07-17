@@ -22,8 +22,8 @@ dependencyResolutionManagement {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/The-Java-Druid/yamlrecords")
             credentials {
-                username = "aliedperezmartinez"
-                password = "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"
+                username = System.getenv("GITHUB_ACTOR") ?: "aliedperezmartinez"
+                password = System.getenv("GITHUB_TOKEN") ?: "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"
             }
         }
     }
