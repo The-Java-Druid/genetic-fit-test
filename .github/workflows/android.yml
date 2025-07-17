@@ -24,5 +24,7 @@ jobs:
         with:
           cache-cleanup: always
       - name: Build with Gradle
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew build
       - run: echo Build status report=${{ job.status }}
