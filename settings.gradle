@@ -7,6 +7,7 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
+        mavenLocal()
         mavenCentral()
         gradlePluginPortal()
     }
@@ -14,8 +15,17 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/The-Java-Druid/yamlrecords")
+            credentials {
+                username = "aliedperezmartinez"
+                password = "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"
+            }
+        }
     }
 }
 

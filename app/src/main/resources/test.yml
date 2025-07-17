@@ -107,12 +107,13 @@ sections:
           - text: "No"
             score: 0
 results:
-  - min: 0
-    max: 35
-    text: "You may face genetic challenges..."
-  - min: 36
-    max: 50
-    text: "You've got a decent potential..."
-  - min: 51
-    max: 256
-    text: "You've got a privileged physique..."
+  ranges:
+    - min: 0
+      max: 35
+      text: "You may face genetic challenges..."
+    - min: 36
+      max: 50
+      text: "You've got a decent potential..."
+    - min: 51
+      max: 256
+      text: "You've got a privileged physique..."
