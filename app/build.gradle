@@ -10,8 +10,9 @@ android {
         applicationId "com.geneticfittest"
         minSdk 28
         targetSdk 36
-        versionCode 1
-        versionName "1.0"
+        versionCode = providers.gradleProperty("version").getOrElse(1)
+        versionName = providers.gradleProperty("releaseName").getOrElse("Bellenos") +
+                " (1.0." + providers.gradleProperty("version").getOrElse("1") + ")"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
