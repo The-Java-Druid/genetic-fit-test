@@ -23,7 +23,7 @@ dependencyResolutionManagement {
             url = uri("https://maven.pkg.github.com/The-Java-Druid/yamlrecords")
             credentials {
                 username = System.getenv("GITHUB_ACTOR") ?: "aliedperezmartinez"
-                password = System.getenv("GITHUB_TOKEN") ?: "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"
+                password = System.getenv("GITHUB_TOKEN") ?: providers.gradleProperty('gh.token')
             }
         }
     }
