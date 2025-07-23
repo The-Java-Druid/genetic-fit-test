@@ -24,35 +24,35 @@ public class QuestionTest {
     );
 
     @Test
-    public void setSelectedAnswer() {
+    public void setSelectedAnswerIndex() {
         final Question question = buildQuestion();
-        question.setSelectedAnswer(0);
+        question.setSelectedAnswerIndex(0);
         assertEquals(BELOW_170, question.selectedAnswer().get());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setSelectedAnswerNegativeIndex() {
+    public void setSelectedAnswerIndexNegativeIndex() {
         final Question question = buildQuestion();
-        question.setSelectedAnswer(-1);
+        question.setSelectedAnswerIndex(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setSelectedAnswerOverflowIndex() {
+    public void setSelectedAnswerIndexOverflowIndex() {
         final Question question = buildQuestion();
-        question.setSelectedAnswer(ANSWERS.size());
+        question.setSelectedAnswerIndex(ANSWERS.size());
     }
 
     @Test
-    public void getScore() {
+    public void score() {
         final Question question = buildQuestion();
-        question.setSelectedAnswer(1);
-        assertEquals(3, question.getScore());
+        question.setSelectedAnswerIndex(1);
+        assertEquals(3, question.score());
     }
 
     @Test
-    public void getScoreNoAnswer() {
+    public void scoreNoAnswer() {
         final Question question = buildQuestion();
-        assertEquals(0, question.getScore());
+        assertEquals(0, question.score());
     }
 
     @NonNull

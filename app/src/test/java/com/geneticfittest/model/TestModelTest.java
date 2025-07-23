@@ -93,34 +93,34 @@ public class TestModelTest {
         final TestModel cr7 = new TestModel("Genetic Test for Bodybuilding Potential", SECTIONS, RESULTS);
         final Section generalShape = cr7.sections().get(0);
         final List<Question> generalShapeQuestions = generalShape.questions();
-        generalShapeQuestions.get(0).setSelectedAnswer(4);
-        generalShapeQuestions.get(1).setSelectedAnswer(2);
-        generalShapeQuestions.get(2).setSelectedAnswer(2);
+        generalShapeQuestions.get(0).setSelectedAnswerIndex(4);
+        generalShapeQuestions.get(1).setSelectedAnswerIndex(2);
+        generalShapeQuestions.get(2).setSelectedAnswerIndex(2);
 
         final Section abs = cr7.sections().get(1);
         final List<Question> absQuestions = abs.questions();
-        absQuestions.get(0).setSelectedAnswer(1);
-        absQuestions.get(1).setSelectedAnswer(1);
-        absQuestions.get(2).setSelectedAnswer(0);
-        absQuestions.get(3).setSelectedAnswer(1);
+        absQuestions.get(0).setSelectedAnswerIndex(1);
+        absQuestions.get(1).setSelectedAnswerIndex(1);
+        absQuestions.get(2).setSelectedAnswerIndex(0);
+        absQuestions.get(3).setSelectedAnswerIndex(1);
 
         final Section pecs = cr7.sections().get(2);
         final List<Question> pecsQuestions = pecs.questions();
-        pecsQuestions.get(0).setSelectedAnswer(0);
-        pecsQuestions.get(1).setSelectedAnswer(0);
-        pecsQuestions.get(2).setSelectedAnswer(1);
+        pecsQuestions.get(0).setSelectedAnswerIndex(0);
+        pecsQuestions.get(1).setSelectedAnswerIndex(0);
+        pecsQuestions.get(2).setSelectedAnswerIndex(1);
 
         final Section calves = cr7.sections().get(3);
         calves.questions()
-            .get(0).setSelectedAnswer(1);
+            .get(0).setSelectedAnswerIndex(1);
 
         final Section biceps = cr7.sections().get(4);
         biceps.questions()
-            .get(0).setSelectedAnswer(0);
+            .get(0).setSelectedAnswerIndex(0);
 
         final Section skin = cr7.sections().get(5);
         skin.questions()
-            .get(0).setSelectedAnswer(1);
+            .get(0).setSelectedAnswerIndex(1);
 
         assertEquals(54, cr7.calculateTotalScore());
         assertEquals("You've got a privileged physique...", cr7.getResultText());

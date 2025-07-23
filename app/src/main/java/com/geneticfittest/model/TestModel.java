@@ -16,6 +16,10 @@ public record TestModel(String title, List<Section> sections, Results results) {
         return results.getResultText(calculateTotalScore());
     }
 
+    public Section getSection(int index) {
+        return sections.get(index);
+    }
+
     @NonNull
     @Override
     public String toString() {

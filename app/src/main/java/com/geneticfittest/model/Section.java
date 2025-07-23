@@ -8,8 +8,12 @@ public record Section(String name, List<Question> questions) {
 
     public int calculateTotalScore() {
         return questions.stream()
-                .mapToInt(Question::getScore)
+                .mapToInt(Question::score)
                 .sum();
+    }
+
+    public Question getQuestion(int index) {
+        return questions.get(index);
     }
 
     @NonNull
