@@ -20,7 +20,10 @@ public class Question {
         this(text, answers, Optional.empty());
     }
 
-    public Question() {}
+    public Question() {
+        this.selectedAnswer = Optional.empty();
+        this.answers = List.of();
+    }
 
     public String getText() {
         return text;
@@ -36,10 +39,6 @@ public class Question {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
-    }
-
-    public void setSelectedAnswer(Optional<Integer> selectedAnswer) {
-        this.selectedAnswer = selectedAnswer;
     }
 
     public void setSelectedAnswerIndex(int index) {

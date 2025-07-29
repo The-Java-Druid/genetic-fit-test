@@ -55,6 +55,19 @@ public class QuestionTest {
         assertEquals(0, question.score());
     }
 
+    @Test
+    public void testGetSelectedAnswerIndexEmpty() {
+        final Question question = new Question();
+
+        assertEquals(-1, question.getSelectedAnswerIndex());
+    }
+
+    @Test
+    public void testGetSelectedAnswerEmpty() {
+        final Question question = new Question();
+
+        assertTrue(question.getSelectedAnswer().isEmpty());
+    }
     @NonNull
     private static Question buildQuestion() {
         return new Question("How tall are you?", ANSWERS);
