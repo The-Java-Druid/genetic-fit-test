@@ -10,14 +10,14 @@ public class Question {
     private List<Answer> answers;
     private Optional<Integer> selectedAnswer;
 
-    public Question(String text, List<Answer> answers, Optional<Integer> selectedAnswer) {
+    public Question(String text, List<Answer> answers, Integer selectedAnswer) {
         this.text = text;
         this.answers = answers;
-        this.selectedAnswer = selectedAnswer;
+        this.selectedAnswer = Optional.ofNullable(selectedAnswer);
     }
 
     public Question(String text, List<Answer> answers) {
-        this(text, answers, Optional.empty());
+        this(text, answers, null);
     }
 
     public Question() {
