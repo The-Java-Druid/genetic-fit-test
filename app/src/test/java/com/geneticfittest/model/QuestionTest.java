@@ -24,20 +24,20 @@ public class QuestionTest {
     );
 
     @Test
-    public void setSelectedAnswerIndex() {
+    public void setGetSelectedAnswerIndex() {
         final Question question = buildQuestion();
         question.setSelectedAnswerIndex(0);
-        assertEquals(BELOW_170, question.selectedAnswer().get());
+        assertEquals(BELOW_170, question.getSelectedAnswer().get());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setSelectedAnswerIndexNegativeIndex() {
+    public void setGetSelectedAnswerIndexNegativeIndex() {
         final Question question = buildQuestion();
         question.setSelectedAnswerIndex(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setSelectedAnswerIndexOverflowIndex() {
+    public void setGetSelectedAnswerIndexOverflowIndex() {
         final Question question = buildQuestion();
         question.setSelectedAnswerIndex(ANSWERS.size());
     }
