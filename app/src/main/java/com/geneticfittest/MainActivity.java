@@ -1,37 +1,67 @@
 package com.geneticfittest;
 
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.geneticfittest.databinding.ActivityMainBinding;
+import com.geneticfittest.model.TestModel;
+import com.geneticfittest.serialisation.TestLoader;
+import com.geneticfittest.ui.SectionFragment;
+
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private static final TestLoader YAML = new TestLoader();
+    private TestModel testModel;
+    private int currentSectionIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        testModel = loadTestModelFromYaml();
+        setContentView(R.layout.activity_main);
+        showSection(currentSectionIndex);
     }
 
+    public void goToNextSection() {
+        if (currentSectionIndex < testModel.getSections().size() - 1) {
+            showSection(++currentSectionIndex);
+        } else {
+            showFinalResult();
+        }
+    }
+
+    public void goToPreviousSection() {
+        if (currentSectionIndex > 0) {
+            showSection(--currentSectionIndex);
+        }
+    }
+
+    private TestModel loadTestModelFromYaml() {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("test.yml")) {
+            return YAML.load(is);
+        } catch (Exception e) {
+            Log.e("MainActivity", "Failed to load test", e);
+            Toast.makeText(this, "Failed to load test: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void showSection(int index) {
+        final SectionFragment fragment = SectionFragment.newInstance(index, testModel);
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
+    }
+
+    private void showFinalResult() {
+        final int totalScore = testModel.calculateTotalScore();
+        final String resultText = testModel.getResultText();
+        // TODO: Replace this with a ResultFragment or custom screen
+        Toast.makeText(this, "Your Score: " + totalScore + "\n" + resultText, Toast.LENGTH_LONG).show();
+    }
 }
