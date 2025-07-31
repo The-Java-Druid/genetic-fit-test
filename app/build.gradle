@@ -41,6 +41,7 @@ dependencies {
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
     implementation libs.viewpager2
+    implementation libs.play.services.ads
     implementation libs.yaml.snakeyaml
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
