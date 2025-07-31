@@ -28,6 +28,6 @@ public class ResultActivity extends AppCompatActivity {
         final String resultText = getIntent().getStringExtra(EXTRA_RESULT_TEXT);
 
         final TextView resultView = findViewById(R.id.resultTextView);
-        resultView.setText(getString(R.string.your_score) + score + "\n" + resultText);
+        resultView.setText(getString(R.string.your_score, score, resultText));
     }
 }
