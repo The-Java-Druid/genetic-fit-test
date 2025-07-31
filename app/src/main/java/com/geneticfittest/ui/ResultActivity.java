@@ -13,7 +13,7 @@ public class ResultActivity extends AppCompatActivity {
     private static final String EXTRA_RESULT_TEXT = "extra_result";
 
     public static void start(Context context, int score, String resultText) {
-        Intent intent = new Intent(context, ResultActivity.class);
+        final Intent intent = new Intent(context, ResultActivity.class);
         intent.putExtra(EXTRA_SCORE, score);
         intent.putExtra(EXTRA_RESULT_TEXT, resultText);
         context.startActivity(intent);
@@ -24,10 +24,10 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        int score = getIntent().getIntExtra(EXTRA_SCORE, 0);
-        String resultText = getIntent().getStringExtra(EXTRA_RESULT_TEXT);
+        final int score = getIntent().getIntExtra(EXTRA_SCORE, 0);
+        final String resultText = getIntent().getStringExtra(EXTRA_RESULT_TEXT);
 
-        TextView resultView = findViewById(R.id.resultTextView);
+        final TextView resultView = findViewById(R.id.resultTextView);
         resultView.setText(getString(R.string.your_score) + score + "\n" + resultText);
     }
 }

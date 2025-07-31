@@ -144,7 +144,7 @@ public class SectionFragment extends Fragment {
     private void onClickNext(View v) {
         try {
             saveSelectedAnswers();
-            ViewPager2 pager = (ViewPager2) requireActivity().findViewById(R.id.viewPager);
+            final ViewPager2 pager = requireActivity().findViewById(R.id.viewPager);
             pager.setCurrentItem(pager.getCurrentItem() + 1, true);
         } catch (IllegalArgumentException e) {
             Toast.makeText(getContext(), "Please select answers for all questions", Toast.LENGTH_SHORT).show();
@@ -152,7 +152,11 @@ public class SectionFragment extends Fragment {
     }
 
     private void onClickFinish(View v) {
-        saveSelectedAnswers();
-        ((MainActivity) getActivity()).showFinalResult();
+        try {
+            saveSelectedAnswers();
+            ((MainActivity) getActivity()).showFinalResult();
+        } catch (IllegalArgumentException e) {
+            Toast.makeText(getContext(), "Please select answers for all questions", Toast.LENGTH_SHORT).show();
+        }
     }
 }
