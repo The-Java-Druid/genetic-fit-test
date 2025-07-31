@@ -1,6 +1,8 @@
 package com.geneticfittest;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,6 +13,9 @@ import com.geneticfittest.model.TestModel;
 import com.geneticfittest.serialisation.TestLoader;
 import com.geneticfittest.ui.ResultActivity;
 import com.geneticfittest.ui.SectionPagerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.io.InputStream;
 
@@ -18,16 +23,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final TestLoader YAML = new TestLoader();
     private TestModel testModel;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         testModel = loadTestModelFromYaml();
-        final ViewPager2 viewPager = findViewById(R.id.viewPager);
-        viewPager.setAdapter(new SectionPagerAdapter(this, testModel));
-// detect when user reaches the last page
-        viewPager.registerOnPageChangeCallback(new MyOnPageChangeCallback(viewPager, testModel, this));
+        adView = findViewById(R.id.adView);
+        new Thread(this::initializeAds).start();
+        setupViewPager();
     }
 
     public void showFinalResult() {
@@ -45,6 +50,50 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void loadBannerAd() {
+        adView.loadAd(new AdRequest.Builder().build());
+    }
+
+    private void scheduleAdRefresh() {
+        new Handler(Looper.getMainLooper())
+            .postDelayed(this::refreshAd, 60000); // refresh every 60s
+    }
+
+    private void setupViewPager() {
+        final ViewPager2 viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(new SectionPagerAdapter(this, testModel));
+        viewPager.registerOnPageChangeCallback(new MyOnPageChangeCallback(viewPager, testModel, this));
+    }
+
+    private void refreshAd() {
+        loadBannerAd();
+        scheduleAdRefresh(); // schedule again
+    }
+
+    private void initializeAds() {
+        MobileAds.initialize(this, initializationStatus -> {});
+        runOnUiThread(() -> {
+            loadBannerAd();
+            refreshAd();
+        });
+    }
+
+    private void slideInAd() {
+        adView.postDelayed(() -> {
+            adView.animate()
+                .translationY(0)
+                .setDuration(300)
+                .start();
+        }, 400);
+    }
+
+    private void slideOutAd() {
+        adView.animate()
+            .translationY(adView.getHeight())
+            .setDuration(300)
+            .start();
+    }
+
     private static class MyOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
         private final ViewPager2 viewPager;
         private final TestModel testModel;
@@ -60,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
         public void onPageSelected(int position) {
             super.onPageSelected(position);
             int lastIndex = testModel.getSections().size() - 1;
+            // Slide out, then slide in
+            mainActivity.slideOutAd();
+            mainActivity.slideInAd();
             if (position == lastIndex) {
                 Toast.makeText(mainActivity, "Swipe again to finish", Toast.LENGTH_SHORT).show();
             }
