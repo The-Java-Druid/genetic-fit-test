@@ -19,18 +19,9 @@
             android:textStyle="bold"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Question text -->
-        <TextView
-            android:id="@+id/questionText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Question will appear here"
-            android:textSize="18sp"
-            android:layout_marginBottom="12dp"/>
-
-        <!-- Answer choices -->
-        <RadioGroup
-            android:id="@+id/answersGroup"
+        <!-- Dynamic container for questions -->
+        <LinearLayout
+            android:id="@+id/questionsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
@@ -47,7 +38,7 @@
                 android:id="@+id/btnPrevious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Previous" />
+                android:text="@string/previous" />
 
             <Space
                 android:layout_width="24dp"
@@ -57,8 +48,15 @@
                 android:id="@+id/btnNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Next" />
-        </LinearLayout>
+                android:text="@string/next" />
 
+            <Button
+                android:id="@+id/btnFinish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/finish"
+                android:visibility="gone"
+                android:layout_marginStart="24dp"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

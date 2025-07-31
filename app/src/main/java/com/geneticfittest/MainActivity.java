@@ -5,11 +5,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.geneticfittest.model.TestModel;
 import com.geneticfittest.serialisation.TestLoader;
-import com.geneticfittest.ui.SectionFragment;
+import com.geneticfittest.ui.ResultActivity;
+import com.geneticfittest.ui.SectionPagerAdapter;
 
 import java.io.InputStream;
 
@@ -17,28 +18,45 @@ public class MainActivity extends AppCompatActivity {
 
     private static final TestLoader YAML = new TestLoader();
     private TestModel testModel;
-    private int currentSectionIndex = 0;
+    private ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        testModel = loadTestModelFromYaml();
         setContentView(R.layout.activity_main);
-        showSection(currentSectionIndex);
+        testModel = loadTestModelFromYaml();
+        viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(new SectionPagerAdapter(this, testModel));
+// detect when user reaches the last page
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                int lastIndex = testModel.getSections().size() - 1;
+                if (position == lastIndex) {
+                    Toast.makeText(MainActivity.this, "Swipe again to finish", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+                // detect when user tries to scroll past last page
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    int current = viewPager.getCurrentItem();
+                    int lastIndex = testModel.getSections().size() - 1;
+                    if (current > lastIndex) {
+                        showFinalResult(); // user tried to go past last
+                    }
+                }
+            }
+        });
     }
 
-    public void goToNextSection() {
-        if (currentSectionIndex < testModel.getSections().size() - 1) {
-            showSection(++currentSectionIndex);
-        } else {
-            showFinalResult();
-        }
-    }
-
-    public void goToPreviousSection() {
-        if (currentSectionIndex > 0) {
-            showSection(--currentSectionIndex);
-        }
+    public void showFinalResult() {
+        final int totalScore = testModel.calculateTotalScore();
+        final String resultText = testModel.getResultText();
+        ResultActivity.start(this, totalScore, resultText);
     }
 
     private TestModel loadTestModelFromYaml() {
@@ -51,17 +69,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showSection(int index) {
-        final SectionFragment fragment = SectionFragment.newInstance(index, testModel);
-        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.commit();
-    }
-
-    private void showFinalResult() {
-        final int totalScore = testModel.calculateTotalScore();
-        final String resultText = testModel.getResultText();
-        // TODO: Replace this with a ResultFragment or custom screen
-        Toast.makeText(this, "Your Score: " + totalScore + "\n" + resultText, Toast.LENGTH_LONG).show();
-    }
 }
