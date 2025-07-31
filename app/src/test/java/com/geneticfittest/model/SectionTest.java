@@ -30,10 +30,10 @@ public class SectionTest {
                 new Answer("Above 2.00", 15)
             ))
         ));
-        final List<Question> questions = instance.questions();
-        questions.get(0).setSelectedAnswer(4);
-        questions.get(1).setSelectedAnswer(2);
-        questions.get(2).setSelectedAnswer(2);
+        final List<Question> questions = instance.getQuestions();
+        questions.get(0).setSelectedAnswerIndex(4);
+        questions.get(1).setSelectedAnswerIndex(2);
+        questions.get(2).setSelectedAnswerIndex(2);
 
         assertEquals(30, instance.calculateTotalScore());
     }

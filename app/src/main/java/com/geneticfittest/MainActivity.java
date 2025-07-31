@@ -1,37 +1,81 @@
 package com.geneticfittest;
 
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.geneticfittest.databinding.ActivityMainBinding;
+import com.geneticfittest.model.TestModel;
+import com.geneticfittest.serialisation.TestLoader;
+import com.geneticfittest.ui.ResultActivity;
+import com.geneticfittest.ui.SectionPagerAdapter;
+
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private static final TestLoader YAML = new TestLoader();
+    private TestModel testModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        setContentView(R.layout.activity_main);
+        testModel = loadTestModelFromYaml();
+        final ViewPager2 viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(new SectionPagerAdapter(this, testModel));
+// detect when user reaches the last page
+        viewPager.registerOnPageChangeCallback(new MyOnPageChangeCallback(viewPager, testModel, this));
     }
 
+    public void showFinalResult() {
+        ResultActivity.start(
+            this, testModel.calculateTotalScore(), testModel.getResultText());
+    }
+
+    private TestModel loadTestModelFromYaml() {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("test.yml")) {
+            return YAML.load(is);
+        } catch (Exception e) {
+            Log.e("MainActivity", "Failed to load test", e);
+            Toast.makeText(this, "Failed to load test: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static class MyOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
+        private final ViewPager2 viewPager;
+        private final TestModel testModel;
+        private final MainActivity mainActivity;
+
+        public MyOnPageChangeCallback(ViewPager2 viewPager, TestModel testModel, MainActivity mainActivity) {
+            this.viewPager = viewPager;
+            this.testModel = testModel;
+            this.mainActivity = mainActivity;
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            super.onPageSelected(position);
+            int lastIndex = testModel.getSections().size() - 1;
+            if (position == lastIndex) {
+                Toast.makeText(mainActivity, "Swipe again to finish", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            super.onPageScrollStateChanged(state);
+            // detect when user tries to scroll past last page
+            if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                int current = viewPager.getCurrentItem();
+                int lastIndex = testModel.getSections().size() - 1;
+                if (current > lastIndex) {
+                    mainActivity.showFinalResult(); // user tried to go past last
+                }
+            }
+        }
+    }
 }

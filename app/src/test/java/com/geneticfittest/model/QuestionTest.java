@@ -24,37 +24,50 @@ public class QuestionTest {
     );
 
     @Test
-    public void setSelectedAnswer() {
+    public void setGetSelectedAnswerIndex() {
         final Question question = buildQuestion();
-        question.setSelectedAnswer(0);
-        assertEquals(BELOW_170, question.selectedAnswer().get());
+        question.setSelectedAnswerIndex(0);
+        assertEquals(BELOW_170, question.getSelectedAnswer().get());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setSelectedAnswerNegativeIndex() {
+    public void setGetSelectedAnswerIndexNegativeIndex() {
         final Question question = buildQuestion();
-        question.setSelectedAnswer(-1);
+        question.setSelectedAnswerIndex(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setSelectedAnswerOverflowIndex() {
+    public void setGetSelectedAnswerIndexOverflowIndex() {
         final Question question = buildQuestion();
-        question.setSelectedAnswer(ANSWERS.size());
+        question.setSelectedAnswerIndex(ANSWERS.size());
     }
 
     @Test
-    public void getScore() {
+    public void score() {
         final Question question = buildQuestion();
-        question.setSelectedAnswer(1);
-        assertEquals(3, question.getScore());
+        question.setSelectedAnswerIndex(1);
+        assertEquals(3, question.score());
     }
 
     @Test
-    public void getScoreNoAnswer() {
+    public void scoreNoAnswer() {
         final Question question = buildQuestion();
-        assertEquals(0, question.getScore());
+        assertEquals(0, question.score());
     }
 
+    @Test
+    public void testGetSelectedAnswerIndexEmpty() {
+        final Question question = new Question();
+
+        assertEquals(-1, question.getSelectedAnswerIndex());
+    }
+
+    @Test
+    public void testGetSelectedAnswerEmpty() {
+        final Question question = new Question();
+
+        assertTrue(question.getSelectedAnswer().isEmpty());
+    }
     @NonNull
     private static Question buildQuestion() {
         return new Question("How tall are you?", ANSWERS);
