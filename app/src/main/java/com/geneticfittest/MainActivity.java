@@ -5,8 +5,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -27,6 +29,12 @@ import java.io.InputStream;
 public class MainActivity extends AppCompatActivity {
 
     private static final TestLoader YAML = new TestLoader();
+    private final String[] loadingMessages = {
+        "Calculating your score…",
+        "Analyzing genetics…",
+        "Checking muscle potential…",
+        "Almost there!"
+    };
     private TestModel testModel;
     private AdView adView;
     private InterstitialAd interstitialAd;
@@ -113,12 +121,12 @@ public class MainActivity extends AppCompatActivity {
             adRequest,
             new InterstitialAdLoadCallback() {
                 @Override
-                public void onAdLoaded(InterstitialAd ad) {
+                public void onAdLoaded(@NonNull InterstitialAd ad) {
                     interstitialAd = ad;
                 }
 
                 @Override
-                public void onAdFailedToLoad(LoadAdError adError) {
+                public void onAdFailedToLoad(@NonNull LoadAdError adError) {
                     interstitialAd = null;
                 }
             });
@@ -142,16 +150,36 @@ public class MainActivity extends AppCompatActivity {
 
     private void showPreAdAnimation(Runnable onFinish) {
         preAdOverlay.setVisibility(View.VISIBLE);
+        preAdOverlay.setAlpha(0f);
+        preAdOverlay.setTranslationY(100f); // starts off-screen
+        final TextView preAdMessage = preAdOverlay.findViewById(R.id.preAdMessage);
+
+        // Cycle messages while overlay is shown
+        final Handler handler = new Handler(Looper.getMainLooper());
+        final int[] index = {0};
+        Runnable messageUpdater = new Runnable() {
+            @Override
+            public void run() {
+                preAdMessage.setText(loadingMessages[index[0]]);
+                index[0] = (index[0] + 1) % loadingMessages.length;
+                handler.postDelayed(this, 400);
+            }
+        };
+
+        // Start cycling messages
+        handler.post(messageUpdater);
+        // Slide in + fade in
         preAdOverlay.animate()
             .alpha(1f)
-            .translationY(0)
-            .setDuration(300)
+            .translationY(0f)
+            .setDuration(400)
             .withEndAction(() -> {
                 // Hold for 0.7s, then hide and call onFinish
                 preAdOverlay.postDelayed(() -> {
                     preAdOverlay.animate()
                         .alpha(0f)
-                        .setDuration(300)
+                        .translationY(100f)
+                        .setDuration(400)
                         .withEndAction(() -> {
                             preAdOverlay.setVisibility(View.GONE);
                             onFinish.run();

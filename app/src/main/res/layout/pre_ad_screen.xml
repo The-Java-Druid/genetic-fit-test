@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="#CC000000"
     android:alpha="0"
+    android:translationY="100dp"
     android:visibility="gone">
 
     <TextView
