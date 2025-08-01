@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private TestModel testModel;
     private AdView adView;
     private InterstitialAd interstitialAd;
+    private View preAdOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,24 +38,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         testModel = loadTestModelFromYaml();
         adView = findViewById(R.id.adView);
+        preAdOverlay = findViewById(R.id.preAdOverlay);
         new Thread(this::initializeAds).start();
         setupViewPager();
     }
 
     public void showFinalResult() {
-        if (interstitialAd != null) {
-            interstitialAd.show(this);
-            interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                @Override
-                public void onAdDismissedFullScreenContent() {
-                    interstitialAd = null;
-                    loadInterstitialAd(); // preload next ad
-                    openResultActivity();
-                }
-            });
-        } else {
-            openResultActivity();
-        }
+        showPreAdAnimation(() -> {
+            if (interstitialAd != null) {
+                interstitialAd.show(this);
+                interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        interstitialAd = null;
+                        loadInterstitialAd(); // preload next ad
+                        openResultActivity();
+                    }
+                });
+            } else {
+                openResultActivity();
+            }
+        });
     }
 
     private void openResultActivity() {
@@ -133,6 +138,26 @@ public class MainActivity extends AppCompatActivity {
             .translationY(adView.getHeight())
             .setDuration(300)
             .start();
+    }
+
+    private void showPreAdAnimation(Runnable onFinish) {
+        preAdOverlay.setVisibility(View.VISIBLE);
+        preAdOverlay.animate()
+            .alpha(1f)
+            .translationY(0)
+            .setDuration(300)
+            .withEndAction(() -> {
+                // Hold for 0.7s, then hide and call onFinish
+                preAdOverlay.postDelayed(() -> {
+                    preAdOverlay.animate()
+                        .alpha(0f)
+                        .setDuration(300)
+                        .withEndAction(() -> {
+                            preAdOverlay.setVisibility(View.GONE);
+                            onFinish.run();
+                        }).start();
+                }, 700);
+            }).start();
     }
 
     private static class MyOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
