@@ -1,4 +1,4 @@
-package com.geneticfittest.ui;
+package com.geneticfittest;
 
 import android.app.Activity;
 import android.os.Handler;
@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.geneticfittest.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;

@@ -1,8 +1,6 @@
 package com.geneticfittest;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,11 +9,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.geneticfittest.model.TestModel;
 import com.geneticfittest.serialisation.TestLoader;
-import com.geneticfittest.ui.InterstitialAdManager;
 import com.geneticfittest.ui.ResultActivity;
 import com.geneticfittest.ui.SectionPagerAdapter;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.io.InputStream;
@@ -24,16 +19,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final TestLoader YAML = new TestLoader();
     private TestModel testModel;
-    private AdView adView;
     private InterstitialAdManager interstitialAdManager;
+    private BannerAdManager bannerAdManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         testModel = loadTestModelFromYaml();
-        adView = findViewById(R.id.adView);
         interstitialAdManager = new InterstitialAdManager(findViewById(R.id.preAdOverlay), this);
+        bannerAdManager = new BannerAdManager(findViewById(R.id.adView));
         new Thread(this::initializeAds).start();
         setupViewPager();
     }
@@ -61,47 +56,17 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(this, initializationStatus -> {});
         runOnUiThread(() -> {
             interstitialAdManager.loadInterstitialAd();
-            loadBannerAd();
-            refreshAd();
+            bannerAdManager.loadBannerAd();
+            bannerAdManager.refreshAd();
         });
     }
 
-    private void loadBannerAd() {
-        adView.loadAd(new AdRequest.Builder().build());
-    }
-
-    private void scheduleAdRefresh() {
-        new Handler(Looper.getMainLooper())
-            .postDelayed(this::refreshAd, 60000); // refresh every 60s
-    }
 
     private void setupViewPager() {
         final ViewPager2 viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new SectionPagerAdapter(this, testModel));
         viewPager.registerOnPageChangeCallback(new ResultsViewMyOnPageChangeCallback(viewPager, testModel, this));
-        viewPager.registerOnPageChangeCallback(new SlideBannerAdCallback(this));
+        viewPager.registerOnPageChangeCallback(new SlideBannerAdCallback(bannerAdManager));
     }
-
-    private void refreshAd() {
-        loadBannerAd();
-        scheduleAdRefresh(); // schedule again
-    }
-
-    public void slideInAd() {
-        adView.postDelayed(() -> {
-            adView.animate()
-                .translationY(0)
-                .setDuration(300)
-                .start();
-        }, 400);
-    }
-
-    public void slideOutAd() {
-        adView.animate()
-            .translationY(adView.getHeight())
-            .setDuration(300)
-            .start();
-    }
-
 
 }

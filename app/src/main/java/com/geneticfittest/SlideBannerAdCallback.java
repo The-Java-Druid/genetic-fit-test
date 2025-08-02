@@ -1,24 +1,20 @@
 package com.geneticfittest;
 
-import android.widget.Toast;
-
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.geneticfittest.model.TestModel;
-
 class SlideBannerAdCallback extends ViewPager2.OnPageChangeCallback {
-    private final MainActivity mainActivity;
+    private final BannerAdManager bannerAdManager;
 
-    public SlideBannerAdCallback(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    public SlideBannerAdCallback(BannerAdManager bannerAdManager) {
+        this.bannerAdManager = bannerAdManager;
     }
 
     @Override
     public void onPageSelected(int position) {
         super.onPageSelected(position);
         // Slide out, then slide in
-        mainActivity.slideOutAd();
-        mainActivity.slideInAd();
+        bannerAdManager.slideOutAd();
+        bannerAdManager.slideInAd();
     }
 
 }
