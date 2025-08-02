@@ -6,12 +6,12 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.geneticfittest.model.TestModel;
 
-class MyOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
+class ResultsViewMyOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
     private final ViewPager2 viewPager;
     private final TestModel testModel;
     private final MainActivity mainActivity;
 
-    public MyOnPageChangeCallback(ViewPager2 viewPager, TestModel testModel, MainActivity mainActivity) {
+    public ResultsViewMyOnPageChangeCallback(ViewPager2 viewPager, TestModel testModel, MainActivity mainActivity) {
         this.viewPager = viewPager;
         this.testModel = testModel;
         this.mainActivity = mainActivity;
@@ -20,10 +20,7 @@ class MyOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
     @Override
     public void onPageSelected(int position) {
         super.onPageSelected(position);
-        int lastIndex = testModel.getSections().size() - 1;
-        // Slide out, then slide in
-        mainActivity.slideOutAd();
-        mainActivity.slideInAd();
+        final int lastIndex = testModel.getSections().size() - 1;
         if (position == lastIndex) {
             Toast.makeText(mainActivity, R.string.swipe_again, Toast.LENGTH_SHORT).show();
         }
@@ -34,8 +31,8 @@ class MyOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
         super.onPageScrollStateChanged(state);
         // detect when user tries to scroll past last page
         if (state == ViewPager2.SCROLL_STATE_IDLE) {
-            int current = viewPager.getCurrentItem();
-            int lastIndex = testModel.getSections().size() - 1;
+            final int current = viewPager.getCurrentItem();
+            final int lastIndex = testModel.getSections().size() - 1;
             if (current > lastIndex) {
                 mainActivity.showFinalResult(); // user tried to go past last
             }

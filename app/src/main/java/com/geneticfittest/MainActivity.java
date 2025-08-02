@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager() {
         final ViewPager2 viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new SectionPagerAdapter(this, testModel));
-        viewPager.registerOnPageChangeCallback(new MyOnPageChangeCallback(viewPager, testModel, this));
+        viewPager.registerOnPageChangeCallback(new ResultsViewMyOnPageChangeCallback(viewPager, testModel, this));
+        viewPager.registerOnPageChangeCallback(new SlideBannerAdCallback(this));
     }
 
     private void refreshAd() {
