@@ -32,9 +32,9 @@ public class SectionFragment extends Fragment {
     private int sectionIndex;
     private TextView sectionTitle;
     private Button btnNext;
-    private Button btnPrevious;
     private Button btnFinish;
     private LinearLayout questionsContainer;
+    private ViewPager2 viewPager;
 
     public static SectionFragment newInstance(int index, TestModel model) {
         final SectionFragment fragment = new SectionFragment();
@@ -63,8 +63,9 @@ public class SectionFragment extends Fragment {
         sectionTitle = view.findViewById(R.id.sectionTitle);
         questionsContainer = view.findViewById(R.id.questionsContainer);
         btnNext = view.findViewById(R.id.btnNext);
-        btnPrevious = view.findViewById(R.id.btnPrevious);
+        final Button btnPrevious = view.findViewById(R.id.btnPrevious);
         btnFinish = view.findViewById(R.id.btnFinish);
+        viewPager = requireActivity().findViewById(R.id.viewPager);
         final Bundle arguments = getArguments();
         if (arguments != null) {
             sectionIndex = arguments.getInt(ARG_SECTION_INDEX);
@@ -73,7 +74,20 @@ public class SectionFragment extends Fragment {
         btnNext.setOnClickListener(this::onClickNext);
         btnPrevious.setOnClickListener(this::onClickPrevious);
         btnFinish.setOnClickListener(this::onClickFinish);
+        viewPager.registerOnPageChangeCallback(new ValidateAnswersCallback(this, sectionIndex, viewPager));
     }
+
+    public boolean onGoToNextPage() {
+        try {
+            saveSelectedAnswers();
+        } catch (IllegalArgumentException e) {
+            Toast.makeText(getContext(), "Please select answers for all questions", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean onGoToPreviousPage() {return true;}
 
     private void loadSection() {
         final Section section = testModel.getSections().get(sectionIndex);
@@ -109,14 +123,12 @@ public class SectionFragment extends Fragment {
         btnNext.setVisibility(isLast ? View.GONE : View.VISIBLE);
     }
 
-    @NonNull
     private RadioGroup buildAnswersRadioGroup() {
         final RadioGroup rg = new RadioGroup(getContext());
         rg.setId(View.generateViewId());
         return rg;
     }
 
-    @NonNull
     private TextView buildQuestionTextView(Question question) {
         final TextView qText = new TextView(getContext());
         qText.setText(question.getText());
@@ -137,18 +149,13 @@ public class SectionFragment extends Fragment {
     }
 
     private void onClickPrevious(View v) {
-        final ViewPager2 pager = requireActivity().findViewById(R.id.viewPager);
-        pager.setCurrentItem(pager.getCurrentItem() - 1, true);
+        if(onGoToPreviousPage())
+            swipePage(-1);
     }
 
     private void onClickNext(View v) {
-        try {
-            saveSelectedAnswers();
-            final ViewPager2 pager = requireActivity().findViewById(R.id.viewPager);
-            pager.setCurrentItem(pager.getCurrentItem() + 1, true);
-        } catch (IllegalArgumentException e) {
-            Toast.makeText(getContext(), "Please select answers for all questions", Toast.LENGTH_SHORT).show();
-        }
+        if(onGoToNextPage())
+            swipePage(1);
     }
 
     private void onClickFinish(View v) {
@@ -159,4 +166,9 @@ public class SectionFragment extends Fragment {
             Toast.makeText(getContext(), "Please select answers for all questions", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void swipePage(int increment) {
+        viewPager.setCurrentItem(viewPager.getCurrentItem() + increment, true);
+    }
+
 }
