@@ -7,4 +7,5 @@
     <string name="finish">Finish</string>
     <string name="share_result">Share Result</string>
     <string name="preparing_results">Preparing Results...</string>
+    <string name="swipe_again">Swipe again to finish</string>
 </resources>
