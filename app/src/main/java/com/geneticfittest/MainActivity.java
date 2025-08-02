@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             });
     }
 
-    private void slideInAd() {
+    public void slideInAd() {
         adView.postDelayed(() -> {
             adView.animate()
                 .translationY(0)
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         }, 400);
     }
 
-    private void slideOutAd() {
+    public void slideOutAd() {
         adView.animate()
             .translationY(adView.getHeight())
             .setDuration(300)
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         // Cycle messages while overlay is shown
         final Handler handler = new Handler(Looper.getMainLooper());
         final int[] index = {0};
-        Runnable messageUpdater = new Runnable() {
+        final Runnable messageUpdater = new Runnable() {
             @Override
             public void run() {
                 preAdMessage.setText(loadingMessages[index[0]]);
@@ -188,40 +188,4 @@ public class MainActivity extends AppCompatActivity {
             }).start();
     }
 
-    private static class MyOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
-        private final ViewPager2 viewPager;
-        private final TestModel testModel;
-        private final MainActivity mainActivity;
-
-        public MyOnPageChangeCallback(ViewPager2 viewPager, TestModel testModel, MainActivity mainActivity) {
-            this.viewPager = viewPager;
-            this.testModel = testModel;
-            this.mainActivity = mainActivity;
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            super.onPageSelected(position);
-            int lastIndex = testModel.getSections().size() - 1;
-            // Slide out, then slide in
-            mainActivity.slideOutAd();
-            mainActivity.slideInAd();
-            if (position == lastIndex) {
-                Toast.makeText(mainActivity, "Swipe again to finish", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            super.onPageScrollStateChanged(state);
-            // detect when user tries to scroll past last page
-            if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                int current = viewPager.getCurrentItem();
-                int lastIndex = testModel.getSections().size() - 1;
-                if (current > lastIndex) {
-                    mainActivity.showFinalResult(); // user tried to go past last
-                }
-            }
-        }
-    }
 }
