@@ -20,4 +20,11 @@
         android:layout_height="wrap_content"
         android:text="@string/share_result"
         android:layout_marginTop="16dp"/>
+    <Button
+        android:id="@+id/buttonRetake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/retake_test"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>

@@ -47,6 +47,12 @@ public class TestModel {
             .sum();
     }
 
+    public void resetAnswers() {
+        sections.stream()
+            .map(Section::getQuestions)
+            .flatMap(List::stream)
+            .forEach(Question::clearAnswer);
+    }
     public String getResultText(){
         return results.getResultText(calculateTotalScore());
     }
