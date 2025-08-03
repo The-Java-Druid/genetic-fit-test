@@ -48,11 +48,10 @@ public class TestModel {
     }
 
     public void resetAnswers() {
-        for (Section section : sections) {
-            for (Question q : section.getQuestions()) {
-                q.clearAnswer(); // implement in Question if not present
-            }
-        }
+        sections.stream()
+            .map(Section::getQuestions)
+            .flatMap(List::stream)
+            .forEach(Question::clearAnswer);
     }
     public String getResultText(){
         return results.getResultText(calculateTotalScore());

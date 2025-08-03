@@ -2,9 +2,11 @@ package com.geneticfittest.model;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TestModelTest {
 
@@ -124,5 +126,13 @@ public class TestModelTest {
 
         assertEquals(54, cr7.calculateTotalScore());
         assertEquals("You've got a privileged physique...", cr7.getResultText());
+
+        cr7.resetAnswers();
+
+        cr7.getSections().stream()
+            .map(Section::getQuestions)
+            .flatMap(List::stream)
+            .map(Question::hasSelectedAnswer)
+            .forEach(Assert::assertFalse);
     }
 }

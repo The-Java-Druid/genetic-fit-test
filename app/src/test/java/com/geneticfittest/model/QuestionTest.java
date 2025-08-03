@@ -68,6 +68,17 @@ public class QuestionTest {
 
         assertTrue(question.getSelectedAnswer().isEmpty());
     }
+
+    @Test
+    public void testClearAnswer() {
+        final Question question = buildQuestion();
+        question.setSelectedAnswerIndex(1);
+        assertTrue(question.hasSelectedAnswer());
+        question.clearAnswer();
+
+        assertFalse(question.hasSelectedAnswer());
+    }
+
     @NonNull
     private static Question buildQuestion() {
         return new Question("How tall are you?", ANSWERS);
