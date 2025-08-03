@@ -63,4 +63,4 @@ If you have questions or concerns about this Privacy Policy, please contact us a
 ---
 
 > You can always access this Privacy Policy at:  
-> **[Link to your GitHub repository or hosted .md file]**
+> **[[Genetic Fitness Test GitHub repository](https://github.com/The-Java-Druid/genetic-fit-test/blob/master/privacy.md)]**
