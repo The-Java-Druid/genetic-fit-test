@@ -49,6 +49,10 @@ public class Question {
         }
     }
 
+    public void clearAnswer() {
+        this.selectedAnswer = Optional.empty();
+    }
+
     public int getSelectedAnswerIndex() {
         return selectedAnswer.orElse(-1);
     }

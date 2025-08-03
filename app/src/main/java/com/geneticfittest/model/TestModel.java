@@ -47,6 +47,13 @@ public class TestModel {
             .sum();
     }
 
+    public void resetAnswers() {
+        for (Section section : sections) {
+            for (Question q : section.getQuestions()) {
+                q.clearAnswer(); // implement in Question if not present
+            }
+        }
+    }
     public String getResultText(){
         return results.getResultText(calculateTotalScore());
     }

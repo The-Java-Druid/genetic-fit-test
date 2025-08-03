@@ -38,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openResultActivity() {
-        ResultActivity.start(
-            this, testModel.calculateTotalScore(), testModel.getResultText());
+        ResultActivity.start(this, testModel);
     }
 
     private TestModel loadTestModelFromYaml() {
