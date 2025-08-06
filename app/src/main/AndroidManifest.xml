@@ -10,10 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GeneticFitTest">
-        <!-- TODO: Use a real AdMob App ID-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-5391740461770424~9910837892" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
