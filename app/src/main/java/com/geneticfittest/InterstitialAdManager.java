@@ -35,7 +35,7 @@ public class InterstitialAdManager {
     public void loadInterstitialAd() {
         final AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(activity,
-            "ca-app-pub-3940256099942544/1033173712", // TODO: Replace with your Interstitial Ad Unit ID
+            "ca-app-pub-5391740461770424/4658511219",
             adRequest,
             new InterstitialAdLoadCallback() {
                 @Override
