@@ -19,17 +19,17 @@ public class InterstitialAdManager {
     private final View preAdOverlay;
     private final Activity activity;
     private InterstitialAd interstitialAd;
-
-    private static final String[] loadingMessages = {
-        "Calculating your score…",
-        "Analyzing genetics…",
-        "Checking muscle potential…",
-        "Almost there!"
-    };
+    private final String[] loadingMessages;
 
     public InterstitialAdManager(View preAdOverlay, Activity activity) {
         this.preAdOverlay = preAdOverlay;
         this.activity = activity;
+        this.loadingMessages = new String[]{
+            activity.getString(R.string.calculating_your_score),
+            activity.getString(R.string.analyzing_genetics),
+            activity.getString(R.string.checking_muscle_potential),
+            activity.getString(R.string.almost_there)
+        };
     }
 
     public void loadInterstitialAd() {

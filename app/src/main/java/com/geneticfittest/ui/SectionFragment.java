@@ -81,7 +81,7 @@ public class SectionFragment extends Fragment {
         try {
             saveSelectedAnswers();
         } catch (IllegalArgumentException e) {
-            Toast.makeText(getContext(), "Please select answers for all questions", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.please_answer_all, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -163,7 +163,7 @@ public class SectionFragment extends Fragment {
             saveSelectedAnswers();
             ((MainActivity) getActivity()).showFinalResult();
         } catch (IllegalArgumentException e) {
-            Toast.makeText(getContext(), "Please select answers for all questions", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.please_answer_all, Toast.LENGTH_SHORT).show();
         }
     }
 

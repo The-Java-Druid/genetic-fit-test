@@ -12,4 +12,10 @@
     <string name="share_your_results_via">Share your results via</string>
     <string name="share_subject">My Bodybuilding Genetics Score</string>
     <string name="share_call_to_action">Here’s my result — think you can beat it? 💪 Try it yourself!</string>
+    <string name="please_answer_all">Please select answers for all questions</string>
+    <string name="calculating_your_score">Calculating your score…</string>
+    <string name="analyzing_genetics">Analyzing genetics…</string>
+    <string name="checking_muscle_potential">Checking muscle potential…</string>
+    <string name="almost_there">Almost there!</string>
+    <string name="failed_to_load_test">"Failed to load test: "</string>
 </resources>
