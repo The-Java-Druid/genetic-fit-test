@@ -24,20 +24,20 @@ public class QuestionTest {
     );
 
     @Test
-    public void setGetSelectedAnswerIndex() {
+    public void setSelectedAnswerIndex() {
         final Question question = buildQuestion();
         question.setSelectedAnswerIndex(0);
         assertEquals(BELOW_170, question.getSelectedAnswer().get());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setGetSelectedAnswerIndexNegativeIndex() {
+    public void setSelectedAnswerIndexNegativeIndex() {
         final Question question = buildQuestion();
         question.setSelectedAnswerIndex(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setGetSelectedAnswerIndexOverflowIndex() {
+    public void setSelectedAnswerIndexOverflowIndex() {
         final Question question = buildQuestion();
         question.setSelectedAnswerIndex(ANSWERS.size());
     }
@@ -56,15 +56,15 @@ public class QuestionTest {
     }
 
     @Test
-    public void testGetSelectedAnswerIndexEmpty() {
-        final Question question = new Question();
+    public void testSelectedAnswerIndexEmpty() {
+        final Question question = buildQuestion();
 
-        assertEquals(-1, question.getSelectedAnswerIndex());
+        assertEquals(-1, question.selectedAnswerIndex());
     }
 
     @Test
     public void testGetSelectedAnswerEmpty() {
-        final Question question = new Question();
+        final Question question = buildQuestion();
 
         assertTrue(question.getSelectedAnswer().isEmpty());
     }

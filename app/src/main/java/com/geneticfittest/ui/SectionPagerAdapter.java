@@ -24,6 +24,6 @@ public class SectionPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return testModel.getSections().size();
+        return testModel.sections().size();
     }
 }

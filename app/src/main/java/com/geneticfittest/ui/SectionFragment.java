@@ -90,12 +90,12 @@ public class SectionFragment extends Fragment {
     public boolean onGoToPreviousPage() {return true;}
 
     private void loadSection() {
-        final Section section = testModel.getSections().get(sectionIndex);
-        sectionTitle.setText(section.getName());
+        final Section section = testModel.sections().get(sectionIndex);
+        sectionTitle.setText(section.name());
         questionsContainer.removeAllViews();
 
         // Create UI for each question in the section
-        for (Question question : section.getQuestions()) {
+        for (Question question : section.questions()) {
             // Question label
             questionsContainer.addView(buildQuestionTextView(question));
 
@@ -104,21 +104,21 @@ public class SectionFragment extends Fragment {
             questionsContainer.addView(rg);
 
             // Add answers dynamically
-            final List<Answer> answers = question.getAnswers();
+            final List<Answer> answers = question.answers();
             for (int aIndex = 0; aIndex < answers.size(); aIndex++) {
                 final Answer answer = answers.get(aIndex);
                 final RadioButton rb = new RadioButton(getContext());
-                rb.setText(answer.getText());
+                rb.setText(answer.text());
                 rb.setId(aIndex);
                 rg.addView(rb);
                 // Restore previously saved answer
-                final int saved = question.getSelectedAnswerIndex();
+                final int saved = question.selectedAnswerIndex();
                 if (saved == aIndex) rb.setChecked(true);
             }
         }
 
         // Show Finish button on last section
-        final boolean isLast = (sectionIndex == testModel.getSections().size() - 1);
+        final boolean isLast = (sectionIndex == testModel.sections().size() - 1);
         btnFinish.setVisibility(isLast ? View.VISIBLE : View.GONE);
         btnNext.setVisibility(isLast ? View.GONE : View.VISIBLE);
     }
@@ -131,7 +131,7 @@ public class SectionFragment extends Fragment {
 
     private TextView buildQuestionTextView(Question question) {
         final TextView qText = new TextView(getContext());
-        qText.setText(question.getText());
+        qText.setText(question.text());
         qText.setTextSize(16);
         qText.setPadding(0, 16, 0, 8);
         return qText;
@@ -139,7 +139,7 @@ public class SectionFragment extends Fragment {
 
     private void saveSelectedAnswers() {
         int viewIndex = 0;
-        for (Question question : testModel.getSection(sectionIndex).getQuestions()) {
+        for (Question question : testModel.section(sectionIndex).questions()) {
             viewIndex++; // skip question TextView
             final RadioGroup rg = (RadioGroup) questionsContainer.getChildAt(viewIndex);
             int selected = rg.getCheckedRadioButtonId();

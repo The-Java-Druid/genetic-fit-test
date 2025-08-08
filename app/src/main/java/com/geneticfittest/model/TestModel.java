@@ -4,66 +4,32 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-public class TestModel {
-    private String title;
-    private List<Section> sections;
-    private Results results;
+public record TestModel(String title, List<Section> sections, Results results) {
 
-    public TestModel(String title, List<Section> sections, Results results) {
-        this.title = title;
-        this.sections = sections;
-        this.results = results;
-    }
-
-    public TestModel() {}
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public List<Section> getSections() {
-        return sections;
-    }
-
-    public void setSections(List<Section> sections) {
-        this.sections = sections;
-    }
-
-    public Results getResults() {
-        return results;
-    }
-
-    public void setResults(Results results) {
-        this.results = results;
-    }
-
-    public int calculateTotalScore() {
+    public int totalScore() {
         return sections.stream()
-            .mapToInt(Section::calculateTotalScore)
+            .mapToInt(Section::totalScore)
             .sum();
     }
 
     public void resetAnswers() {
         sections.stream()
-            .map(Section::getQuestions)
+            .map(Section::questions)
             .flatMap(List::stream)
             .forEach(Question::clearAnswer);
     }
-    public String getResultText(){
-        return results.getResultText(calculateTotalScore());
+
+    public String resultText(){
+        return results.resultText(totalScore());
     }
 
-    public Section getSection(int index) {
+    public Section section(int index) {
         return sections.get(index);
     }
 
     @NonNull
     @Override
     public String toString() {
-        return getTitle();
+        return title();
     }
 }
