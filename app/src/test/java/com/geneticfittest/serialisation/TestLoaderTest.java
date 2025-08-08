@@ -13,7 +13,7 @@ public class TestLoaderTest {
 
     @Test
     public void testLoader() throws IOException {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream("test.yml")) {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("en/test.yml")) {
             TestModel test = new TestLoader().load(is);
 
             assertEquals("Genetic Test for Bodybuilding Potential", test.getTitle());
