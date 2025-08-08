@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -14,6 +15,9 @@ import com.geneticfittest.ui.SectionPagerAdapter;
 import com.google.android.gms.ads.MobileAds;
 
 import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Path;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,12 +46,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private TestModel loadTestModelFromYaml() {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream("test.yml")) {
+        try (final InputStream is = getClass().getClassLoader().getResourceAsStream(getFileName())) {
             return YAML.load(is);
         } catch (Exception e) {
             Log.e("MainActivity", "Failed to load test", e);
             Toast.makeText(this, getString(R.string.failed_to_load_test) + e.getMessage(), Toast.LENGTH_LONG).show();
             throw new RuntimeException(e);
+        }
+    }
+
+    @NonNull
+    private static String getFileName() {
+        final String languageCode = Locale.getDefault().getLanguage(); // e.g., "en", "es"
+        final String fileName = languageCode + "/test.yml";
+        final URL testFile = MainActivity.class.getClassLoader().getResource(fileName);
+        if (testFile != null) {
+            return fileName;
+        } else {
+            return "en/test.yml";
         }
     }
 

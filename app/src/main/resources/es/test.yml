@@ -1,0 +1,119 @@
+title: "Prueba Genética de Potencial para Fisiculturismo"
+sections:
+  - name: "Forma General"
+    questions:
+      - text: "¿Cuánto mides?"
+        answers:
+          - text: "Menos de 1.70m"
+            score: 0
+          - text: "1.70m a 1.75m"
+            score: 3
+          - text: "1.75m a 1.80m"
+            score: 5
+          - text: "1.80m a 1.85m"
+            score: 8
+          - text: "Más de 1.85m"
+            score: 12
+      - text: "¿Con qué facilidad pierdes grasa y ganas músculos?"
+        answers:
+          - text: "Meh..."
+            score: 4
+          - text: "Podría ser mejor"
+            score: 6
+          - text: "¡Bestial!"
+            score: 8
+      - text: "¿Qué tan anchos son tus hombros con respecto a tus caderas?"
+        answers:
+          - text: "Igual"
+            score: 1
+          - text: "Apróximadamente 1.5"
+            score: 3
+          - text: "Más de 1.75"
+            score: 10
+          - text: "Más de 2.00"
+            score: 15
+  - name: "Abdominales"
+    questions:
+      - text: "¿Qué tan simétricos son tus abdominales?"
+        answers:
+          - text: "Completamente simétricos"
+            score: 4
+          - text: "Asimétricos"
+            score: 0
+      - text: "¿Qué tan cuadrados son tus abdominales?"
+        answers:
+          - text: "Cuadrados/rectangulares"
+            score: 2
+          - text: "Irregulares"
+            score: 0
+      - text: "¿Qué tan ancho es el espacio entre tus abdominales?"
+        answers:
+          - text: "Muy estrecho"
+            score: 4
+          - text: "Ancho"
+            score: 0
+      - text: "¿Cuántos abdominales se te ven?"
+        answers:
+          - text: "4-pack"
+            score: 1
+          - text: "6-pack+"
+            score: 2
+  - name: "Pectorales"
+    questions:
+      - text: "¿Qué tan simétricos son tus pectorales?"
+        answers:
+          - text: "Completamente simétricos"
+            score: 4
+          - text: "Asimétricos"
+            score: 0
+      - text: "¿Qué tan cuadrados son tus pectorales?"
+        answers:
+          - text: "Cuadrados/rectangulares"
+            score: 4
+          - text: "Redondos/Irregulares"
+            score: 0
+      - text: "¿Qué tan ancho es el espacio entre tus pectorales?"
+        answers:
+          - text: "Muy estrecho"
+            score: 4
+          - text: "Muy estrecho para arriba, pero ancho para abajo"
+            score: 2
+          - text: "Ancho"
+            score: 0
+  - name: "Gemelos"
+    questions:
+      - text: "¿Qué tan largos son tus tendones?"
+        answers:
+          - text: "Corto"
+            score: 6
+          - text: "Medio"
+            score: 3
+          - text: "Largo"
+            score: 0
+  - name: "Biceps"
+    questions:
+      - text: "¿Qué tan largos son tus tendones?"
+        answers:
+          - text: "Corto"
+            score: 5
+          - text: "Largo"
+            score: 0
+  - name: "Piel"
+    questions:
+      - text: "¿Puedes ver los detalles de los músculos a través de la piel?"
+        answers:
+          - text: "Sí"
+            score: 2
+          - text: "No"
+            score: 0
+results:
+  ranges:
+    - min: 0
+      max: 35
+      text: "Vas a tener que esforzarte mucho..."
+    - min: 36
+      max: 50
+      text: "Tienes un buen potencial."
+    - min: 51
+      max: 256
+      text: "Tienes un físico privilegiado."
