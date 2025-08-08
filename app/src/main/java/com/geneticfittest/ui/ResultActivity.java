@@ -23,8 +23,8 @@ public class ResultActivity extends AppCompatActivity {
     public static void start(Context context, TestModel testModel) {
         ResultActivity.testModel = testModel;
         final Intent intent = new Intent(context, ResultActivity.class);
-        intent.putExtra(EXTRA_SCORE, testModel.calculateTotalScore());
-        intent.putExtra(EXTRA_RESULT_TEXT, testModel.getResultText());
+        intent.putExtra(EXTRA_SCORE, testModel.totalScore());
+        intent.putExtra(EXTRA_RESULT_TEXT, testModel.resultText());
         context.startActivity(intent);
     }
 

@@ -14,18 +14,18 @@ public class ResultsTest {
     public static final ResultRange PRETTY_GOOD = new ResultRange(11, 20, "Pretty good, actually");
 
     @Test
-    public void testGetResultText() {
-        assertEquals("Pretty good, actually", getResults().getResultText(15));
+    public void testResultText() {
+        assertEquals("Pretty good, actually", getResults().resultText(15));
     }
 
     @Test
-    public void testGetResultTextUnderScore() {
-        assertEquals(Results.UNKNOWN_RESULT_TEXT, getResults().getResultText(0));
+    public void testResultTextUnderScore() {
+        assertEquals(Results.UNKNOWN_RESULT_TEXT, getResults().resultText(0));
     }
 
     @Test
-    public void testGetResultTextOverScore() {
-        assertEquals(Results.UNKNOWN_RESULT_TEXT, getResults().getResultText(0));
+    public void testResultTextOverScore() {
+        assertEquals(Results.UNKNOWN_RESULT_TEXT, getResults().resultText(0));
     }
 
     @NonNull

@@ -20,7 +20,7 @@ class ResultsViewMyOnPageChangeCallback extends ViewPager2.OnPageChangeCallback 
     @Override
     public void onPageSelected(int position) {
         super.onPageSelected(position);
-        final int lastIndex = testModel.getSections().size() - 1;
+        final int lastIndex = testModel.sections().size() - 1;
         if (position == lastIndex) {
             Toast.makeText(mainActivity, R.string.swipe_again, Toast.LENGTH_SHORT).show();
         }
@@ -32,7 +32,7 @@ class ResultsViewMyOnPageChangeCallback extends ViewPager2.OnPageChangeCallback 
         // detect when user tries to scroll past last page
         if (state == ViewPager2.SCROLL_STATE_IDLE) {
             final int current = viewPager.getCurrentItem();
-            final int lastIndex = testModel.getSections().size() - 1;
+            final int lastIndex = testModel.sections().size() - 1;
             if (current > lastIndex) {
                 mainActivity.showFinalResult(); // user tried to go past last
             }

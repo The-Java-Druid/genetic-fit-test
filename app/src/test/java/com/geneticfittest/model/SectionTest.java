@@ -9,7 +9,7 @@ import java.util.List;
 public class SectionTest {
 
     @Test
-    public void calculateTotalScore() {
+    public void totalScore() {
         final Section instance = new Section("General shape", List.of(
             new Question("How tall are you?", List.of(
                 new Answer("Less than 1.70m", 0),
@@ -30,11 +30,11 @@ public class SectionTest {
                 new Answer("Above 2.00", 15)
             ))
         ));
-        final List<Question> questions = instance.getQuestions();
+        final List<Question> questions = instance.questions();
         questions.get(0).setSelectedAnswerIndex(4);
         questions.get(1).setSelectedAnswerIndex(2);
         questions.get(2).setSelectedAnswerIndex(2);
 
-        assertEquals(30, instance.calculateTotalScore());
+        assertEquals(30, instance.totalScore());
     }
 }
