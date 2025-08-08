@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             return YAML.load(is);
         } catch (Exception e) {
             Log.e("MainActivity", "Failed to load test", e);
-            Toast.makeText(this, "Failed to load test: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.failed_to_load_test) + e.getMessage(), Toast.LENGTH_LONG).show();
             throw new RuntimeException(e);
         }
     }

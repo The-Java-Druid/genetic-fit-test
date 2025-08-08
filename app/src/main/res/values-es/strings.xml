@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Prueba Genética de Fitness</string>
+    <string name="previous">Anterior</string>
+    <string name="next">Siguiente</string>
+    <string name="result_here">Resultados aquí</string>
+    <string name="your_score">Tu puntuación: %1$d\n%2$s</string>
+    <string name="finish">Finalizar</string>
+    <string name="share_result">Compartir</string>
+    <string name="preparing_results">Preparando Resultados…</string>
+    <string name="swipe_again">Desliza otra vez para finalizar</string>
+    <string name="retake_test">Otra vez</string>
+    <string name="share_your_results_via">Comparte tu resultado</string>
+    <string name="share_subject">Mi puntuación genética para el fisiculturismo</string>
+    <string name="share_call_to_action">Éste es mi resultado 💪 ¿Crees que puedes superarlo? ¡Inténtalo!</string>
+    <string name="please_answer_all">Por favor selecciona respuestas para todas las preguntas</string>
+    <string name="calculating_your_score">Calculando tu puntuación…</string>
+    <string name="analyzing_genetics">Analizando genética…</string>
+    <string name="checking_muscle_potential">Chequeando potencial muscular…</string>
+    <string name="almost_there">¡Ya casi!</string>
+    <string name="failed_to_load_test">"Fallo al cargar el test: "</string>
+</resources>
