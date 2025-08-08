@@ -47,15 +47,17 @@ public class ResultActivity extends AppCompatActivity {
 
     private void shareResult(String resultMessage) {
         startActivity(Intent.createChooser(
-            buildShareIntent(resultMessage), "Share your results via"));
+            buildShareIntent(resultMessage), getString(R.string.share_your_results_via)));
     }
 
     @NonNull
-    private static Intent buildShareIntent(String resultMessage) {
+    private Intent buildShareIntent(String resultMessage) {
         final Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My Bodybuilding Genetics Score");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, resultMessage);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject));
+        shareIntent.putExtra(Intent.EXTRA_TEXT,
+            resultMessage + "\n\n" + getString(R.string.share_call_to_action) +
+            "\nhttps://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName());
         return shareIntent;
     }
 

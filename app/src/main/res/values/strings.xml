@@ -6,7 +6,10 @@
     <string name="your_score">"Your Score: %1$d\n%2$s"</string>
     <string name="finish">Finish</string>
     <string name="share_result">Share Result</string>
-    <string name="preparing_results">Preparing Results...</string>
+    <string name="preparing_results">Preparing Results…</string>
     <string name="swipe_again">Swipe again to finish</string>
     <string name="retake_test">Retake Test</string>
+    <string name="share_your_results_via">Share your results via</string>
+    <string name="share_subject">My Bodybuilding Genetics Score</string>
+    <string name="share_call_to_action">Here’s my result — think you can beat it? 💪 Try it yourself!</string>
 </resources>
