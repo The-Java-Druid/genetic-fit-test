@@ -10,7 +10,7 @@ lifecycleLivedataKtx = "2.9.2"
 lifecycleViewmodelKtx = "2.9.2"
 navigationFragment = "2.9.3"
 navigationUi = "2.9.3"
-playServicesAds = "24.5.0"
+playServicesAds = "24.6.0"
 snakeyamlVersion = "2.4"
 viewpager2 = "1.1.0"
 
