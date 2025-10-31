@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.geneticfittest.MainActivity;
@@ -24,6 +25,7 @@ import com.geneticfittest.model.Section;
 import com.geneticfittest.model.TestModel;
 
 import java.util.List;
+import java.util.Map;
 
 public class SectionFragment extends Fragment {
 
@@ -35,6 +37,7 @@ public class SectionFragment extends Fragment {
     private Button btnFinish;
     private LinearLayout questionsContainer;
     private ViewPager2 viewPager;
+    private TestViewModel viewModel;
 
     public static SectionFragment newInstance(int index, TestModel model) {
         final SectionFragment fragment = new SectionFragment();
@@ -53,6 +56,12 @@ public class SectionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+        // Shared ViewModel tied to parent Activity
+        viewModel = new ViewModelProvider(requireActivity()).get(TestViewModel.class);
+
+        // Observe stored answers (optional: to restore UI state)
+        viewModel.getSelectedAnswers()
+            .observe(getViewLifecycleOwner(), this::restoreSelections);
         return inflater.inflate(R.layout.fragment_section, container, false);
     }
 
@@ -142,8 +151,9 @@ public class SectionFragment extends Fragment {
         for (Question question : testModel.section(sectionIndex).questions()) {
             viewIndex++; // skip question TextView
             final RadioGroup rg = (RadioGroup) questionsContainer.getChildAt(viewIndex);
-            int selected = rg.getCheckedRadioButtonId();
+            final int selected = rg.getCheckedRadioButtonId();
             question.setSelectedAnswerIndex(selected);
+            viewModel.setAnswer(sectionIndex, selected);
             viewIndex++;
         }
     }
@@ -169,6 +179,13 @@ public class SectionFragment extends Fragment {
 
     private void swipePage(int increment) {
         viewPager.setCurrentItem(viewPager.getCurrentItem() + increment, true);
+    }
+
+    private void restoreSelections(Map<Integer, Integer> answers) {
+        Integer savedValue = answers.get(sectionIndex);
+        if (savedValue != null) {
+            // update UI, e.g., check the right option
+        }
     }
 
 }
