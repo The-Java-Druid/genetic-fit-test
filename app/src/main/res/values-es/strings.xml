@@ -18,5 +18,5 @@
     <string name="analyzing_genetics">Analizando genética…</string>
     <string name="checking_muscle_potential">Chequeando potencial muscular…</string>
     <string name="almost_there">¡Ya casi!</string>
-    <string name="failed_to_load_test">"Fallo al cargar el test: "</string>
+    <string name="failed_to_load_test">Fallo al cargar el test: </string>
 </resources>
