@@ -19,6 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-# SnakeYAML uses reflection
+# SnakeYAML uses reflection and references java.beans classes not present in Android SDK
 -keep class org.yaml.snakeyaml.** { *; }
 -keepattributes Signature
+-dontwarn java.beans.**
+
