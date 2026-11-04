@@ -19,8 +19,19 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-# SnakeYAML uses reflection and references java.beans classes not present in Android SDK
--keep class org.yaml.snakeyaml.** { *; }
--keepattributes Signature
+# Suppress warnings for missing java.beans classes not present in Android
 -dontwarn java.beans.**
+-keepattributes Signature
 
+# Keep SnakeYAML classes to prevent issues during minification
+-keep class org.yaml.snakeyaml.** { *; }
+-dontwarn org.yaml.snakeyaml.**
+
+# Keep the record classes, their fields, and all constructors/methods
+-keep class com.geneticfittest.model.** { *; }
+# Explicitly prevent R8 from optimizing or shifting constructor signatures
+-keepclassmembers class com.geneticfittest.model.** {
+    <init>(...);
+}
+# Keep the Record attribute metadata just in case your parsing checks it
+-keepattributes Record
