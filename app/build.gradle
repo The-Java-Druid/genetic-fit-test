@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.geneticfittest'
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId "com.geneticfittest"
         minSdk 28
-        targetSdk 36
+        targetSdk 37
         versionCode = providers.gradleProperty("version").getOrElse(1)
         versionName = providers.gradleProperty("releaseName").getOrElse("Bellenos") +
                 " (1.0." + versionCode + ")"
@@ -19,7 +19,11 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            // Enable code shrinking, obfuscation, and optimization
+            minifyEnabled true
+            // Optional but highly recommended: removes unused layouts/drawables
+            shrinkResources true
+            // Use the standard optimized ProGuard configuration rules file
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
