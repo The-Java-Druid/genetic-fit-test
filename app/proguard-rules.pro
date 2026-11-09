@@ -35,3 +35,21 @@
 }
 # Keep the Record attribute metadata just in case your parsing checks it
 -keepattributes Record
+
+# Keep androidx.startup InitializationProvider and Initializer implementations loaded reflectively
+-keep public class androidx.startup.InitializationProvider {
+    public <init>();
+}
+-keep public class * implements androidx.startup.Initializer {
+    public <init>();
+}
+# Prevent R8 / Proguard from obfuscating Room generated classes
+-keep class * extends androidx.room.RoomDatabase { *; }
+-keepclassmembers class * extends androidx.room.RoomDatabase {
+    <init>(...);
+}
+
+# Keep WorkManager initialization components
+-keep class androidx.work.impl.WorkDatabase_Impl { *; }
+-keep class * extends androidx.work.Worker { *; }
+-keep class * extends androidx.work.ListenableWorker { *; }

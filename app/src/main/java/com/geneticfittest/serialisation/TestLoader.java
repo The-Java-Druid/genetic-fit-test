@@ -177,15 +177,12 @@ public class TestLoader {
 
             @Override
             public Object construct(Node node) {
-                List<ResultRange> ranges = null;
                 for (NodeTuple tuple : getMappingValue(node)) {
-                    switch (getScalarValue(tuple.getKeyNode())) {
-                        case "ranges":
-                            ranges = getChildren(tuple, ResultRange.class, RESULT_RANGE_TAG);
-                            break;
+                    if ("ranges".equals(getScalarValue(tuple.getKeyNode()))) {
+                        return  new Results(getChildren(tuple, ResultRange.class, RESULT_RANGE_TAG));
                     }
                 }
-                return new Results(ranges);
+                return null;
             }
 
         }
